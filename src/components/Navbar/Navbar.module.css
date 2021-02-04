@@ -1,0 +1,22 @@
+.nav {
+    grid-area: n;
+    background-color: palevioletred;
+    padding: 20px;
+  }
+
+.item {
+  cursor: pointer;
+}
+.item:nth-last-child(1) {
+  font-size: 40px;
+  margin-top: 30px;
+}
+
+.item a{
+    color: white;
+    text-decoration: none;
+}
+
+.item a.activeLink {
+  color: gold;
+}
