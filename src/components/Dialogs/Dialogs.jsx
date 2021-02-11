@@ -6,21 +6,21 @@ import { addMessageCreater, updateNewMessageTextCreater } from '../../redux/dial
 
 
 const Dialogs = (props) => {
-
-    let dialogsElement = props.dialogPage.dialogData.map( d => <DialogItem name= {d.name} id={d.id} />);
-    let messagesElement = props.dialogPage.messageData.map( m => <Message message={m.message} />);
     
+    let state = props.dialogPage;
 
-    let addPostElement = React.createRef();
+    let newMessageText = state.newMessageText;
+    let dialogsElement = state.dialogData.map( d => <DialogItem name= {d.name} id={d.id} />);
+    let messagesElement = state.messageData.map( m => <Message message={m.message} />);
+    
     
     let addMessage= () => {
-        props.dispatch(addMessageCreater());
+        props.sendMessage();
     };
 
-    let onMessageChange = () => {
-        let text = addPostElement.current.value;
-        let messageAction = updateNewMessageTextCreater(text);
-        props.dispatch(messageAction);
+    let onMessageChange = (e) => {
+        let text = e.target.value;
+        props.updateNewMessageText(text);
     };
 
     return (
@@ -31,7 +31,9 @@ const Dialogs = (props) => {
             <div className={styles.messages}>
                 {messagesElement}
                 <div>
-                <textarea placeholder="Enter you message" ref={addPostElement} value={props.dialogPage.newMessageText} onChange={onMessageChange}/>
+                <textarea placeholder="Enter you message" 
+                            value={newMessageText} 
+                            onChange={onMessageChange}/>
                 </div>
                 <button onClick={addMessage}>Add post</button>
             </div>
