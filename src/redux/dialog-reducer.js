@@ -20,16 +20,21 @@ let initialState = {
       newMessageText: '',
 };
 
+
 const dialogReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let messageText = state.newMessageText;
-            state.messageData.push({id: 6, message: messageText});
-            state.newMessageText = '';
-            return state;
+            return {
+                ...state,
+                messageData: [...state.messageData, {id: 6, message: messageText}],
+                newMessageText: ''
+            };
         case UPDATE_NEW_MESSAGE_TEXT: 
-            state.newMessageText = action.newMessage;
-            return state;
+            return {
+                ...state,
+                newMessageText: action.newMessage
+            };
         default:
             return state;
     }
@@ -38,3 +43,23 @@ const dialogReducer = (state = initialState, action) => {
 export default dialogReducer;
 export const addMessageCreater = () => ({type: ADD_MESSAGE});
 export const updateNewMessageTextCreater = (message) => ({type: UPDATE_NEW_MESSAGE_TEXT, newMessage: message});
+
+
+// let stateCopy;
+// switch (action.type) {
+//     case ADD_MESSAGE: {
+//         stateCopy = {...state};
+//         let messageText = stateCopy.newMessageText;
+//         stateCopy.messageData = [...state.messageData];
+//         stateCopy.messageData.push({id: 6, message: messageText});
+//         stateCopy.newMessageText = '';
+//         return stateCopy;
+//     }
+//     case UPDATE_NEW_MESSAGE_TEXT: {
+//         stateCopy = {...state};
+//         stateCopy.newMessageText = action.newMessage;
+//         return stateCopy;
+//     }
+//     default:
+//         return state;
+// }
